@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function on_cd() {
+    #
+    # Project file
+    #
+    if [[ -r .projectrc ]]; then
+        source .projectrc
+    fi
+}
+
+function cmd_init() {
+    if [[ ! -d .botkit ]]; then
+        set -B
+        mkdir .botkit
+        mkdir .botkit/{workflows,secrets,runs,files,app,test,bin}
+        touch .botkit/projectrc
+        touch .botkit/botkitrc
+    fi
+}
+
+function bot() {
+    printf "$#\n"
+    printf "$@\n"
+
+    while [[ $# -ge 1 ]] ; do 
+        case $1 in
+            init)
+                cmd_init
+                shift
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+}
+
+
+# export PROMPT_COMMAND='on_cd'

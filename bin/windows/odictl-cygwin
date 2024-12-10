@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o vi
+export ODI_HOME=/cygdrive/c/Users/ryanc/omniodynamics
+export PATH=${PATH}:/bin:/sbin:/usr/bin:/usr/local/bin
+export PATH=${PATH}:${ODI_HOME}/botkit/bin
+export PROMPT_COMMAND='if [[ -r .projectrc ]]; then unset PROJECT; source .projectrc; fi'
+export CYGPKG_BIN=/cygdrive/c/Users/ryanc/Downloads/setup-x86_64
+
+function cygpkg-install() {
+    ${CYGPKG_BIN} -q -P $@
+}
