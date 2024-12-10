@@ -2,7 +2,9 @@ name: Echo Secret with Spaces
 
 on: 
   workflow_dispatch:
-  push:
+    inputs:
+      tags: 
+        required: false
 
 jobs:
   echo-secret:
