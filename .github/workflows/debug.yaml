@@ -10,6 +10,11 @@ jobs:
   echo-secret:
     runs-on: ubuntu-latest
     steps:
-    - name: Echo Secret with Spacing
+    - name: debug
+      id: set-outputs
       run: |
-        echo MYSECRET=$(echo ${{ secrets.MYSECRET }} | base64)
+        echo mysecret=$(echo ${{ secrets.MYSECRET }} | base64) >> $GITHUB_OUTPUT
+
+    - name: Use outputs
+      run: |
+        echo ${{ steps.set-outputs.outputs.mysecret }}
