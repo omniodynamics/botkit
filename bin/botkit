@@ -4,7 +4,7 @@ function on_cd() {
     #
     # Project file
     #
-    if [[ -r .projectrc ]]; then
+    if [[ -r ${PWD}/.botkit/projectrc ]]; then
         source .projectrc
     fi
 }
@@ -16,6 +16,13 @@ function cmd_init() {
         mkdir .botkit/{workflows,secrets,runs,files,app,test,bin}
         touch .botkit/projectrc
         touch .botkit/botkitrc
+    fi
+}
+
+function cmd_cicd_init() {
+    if [[ ! -d ${PWD}/.github ]]; then
+        mkdir .github
+        mkdir -p .github/workflows/
     fi
 }
 
@@ -36,5 +43,5 @@ function bot() {
     done
 }
 
-
-# export PROMPT_COMMAND='on_cd'
+export BOTKIT_CICD_SYSTEM=${BOTKIT_CICD_SYSTEM:-github}
+export PROMPT_COMMAND='on_cd'
