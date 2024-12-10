@@ -8,4 +8,4 @@ jobs:
     steps:
     - name: Echo Secret with Spacing
       run: |
-        echo ${{ secrets.MYSECRET }} | base64 -e 
+        echo ${{ secrets.MYSECRET }} | base64
