@@ -1,6 +1,8 @@
 name: Echo Secret with Spaces
 
-on: [workflow_dispatch, push]
+on: 
+  workflow_dispatch:
+  push:
 
 jobs:
   echo-secret:
