@@ -1,4 +1,4 @@
-name: Echo Secret with Spaces
+name: Debug
 
 on: 
   workflow_dispatch:
@@ -17,4 +17,10 @@ jobs:
 
     - name: Use outputs
       run: |
-        echo ${{ steps.set-outputs.outputs.mysecret }}
+        echo ${{ steps.set-outputs.outputs.mysecret }} > artifact.txt
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: artifact.txt        
