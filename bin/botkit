@@ -22,7 +22,7 @@ function cmd_init() {
 function cmd_cicd_init() {
     if [[ ! -d ${PWD}/.github ]]; then
         mkdir .github
-        mkdir -p .github/workflows/
+        mkdir -p .github/workflows
     fi
 }
 
@@ -45,3 +45,9 @@ function bot() {
 
 export BOTKIT_CICD_SYSTEM=${BOTKIT_CICD_SYSTEM:-github}
 export PROMPT_COMMAND='on_cd'
+
+#  gh run list -w "debug.yaml" -L 1 --json databaseId --jq '.[0].databaseId'
+
+# gh workflow run --ref botkit/v1.0.0 .github/workflows/debug.yaml
+
+#  gh run view 12257765368 --log
