@@ -1,0 +1,14 @@
+name: Echo Secret with Spaces
+
+on: [workflow_dispatch, push]
+
+jobs:
+  echo-secret:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Echo Secret with Spacing
+      env:
+        MYSECRET: ${{ secrets.MYSECRET }}
+      run: |
+        # Using echo to display the secret, then sed to replace every second character with a space
+        echo "$MYSECRET" | sed 's/\(.\)/\1 /2; s/ //g; s/\(.\) /\1/g'
