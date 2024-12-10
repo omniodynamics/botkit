@@ -46,6 +46,9 @@ function bot() {
 export BOTKIT_CICD_SYSTEM=${BOTKIT_CICD_SYSTEM:-github}
 export PROMPT_COMMAND='on_cd'
 
+
+# git status; git add -u ; git commit -m '[botkit/v1.0.0] Testing.'; git push;
+
 #  gh run list -w "debug.yaml" -L 1 --json databaseId --jq '.[0].databaseId'
 
 # gh workflow run --ref botkit/v1.0.0 .github/workflows/debug.yaml
