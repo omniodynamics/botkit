@@ -1,0 +1,6 @@
+From: <sender@odinet.sh>
+To: <receiver@odinet.sh>
+Data:
+Subject: Test
+
+This is a test email.

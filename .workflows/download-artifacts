@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export runid=$(gh run list -w "debug.yaml" -L 1 --json databaseId --jq '.[0].databaseId')
+gh run view ${runid} --log
+gh run download ${runid} --repo omniodynamics/botkit  -n artifact.txt

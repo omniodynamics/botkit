@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run -p 3128:3128 squid-proxy

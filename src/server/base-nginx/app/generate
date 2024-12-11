@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Create directory structure for certificates
+mkdir -p /certs/ca
+
+# Generate CA private key
+openssl genrsa -out /certs/ca/ca.key 2048
+
+# Generate CA certificate
+openssl req -x509 -new -nodes -key /certs/ca/ca.key \
+    -sha256 -days 365 -out /certs/ca/ca.crt \
+    -subj "/C=US/ST=State/L=Locality/O=Organization/CN=MyRootCA"
+
+# Initialize files for CRL number and certificate index
+echo "01" > /certs/ca/crlnumber
+touch /certs/ca/index.txt
+
+# Generate server private key
+openssl genrsa -out /certs/server.key 2048
+
+# Create server certificate signing request (CSR)
+# Note: You need a custom config file for SAN if you're using localhost or specific domains
+cat > /tmp/openssl-ext.cnf << EOF
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+CN = localhost
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+EOF
+
+openssl req -new -key /certs/server.key -out /certs/server.csr \
+    -config /tmp/openssl-ext.cnf -extensions req_ext
+
+# Sign the server certificate with the CA
+openssl x509 -req -in /certs/server.csr -CA /certs/ca/ca.crt -CAkey /certs/ca/ca.key \
+    -CAcreateserial -out /certs/server.crt -days 365 -sha256 \
+    -extfile /tmp/openssl-ext.cnf -extensions req_ext
+
+# Clean up temporary config file
+rm /tmp/openssl-ext.cnf
+
+echo "Certificates and keys have been created in /certs directory."

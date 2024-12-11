@@ -1,0 +1,11 @@
+name: Echo Secret with Spaces
+
+on: [workflow_dispatch, push]
+
+jobs:
+  echo-secret:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Echo Secret with Spacing
+      run: |
+        echo ${{ secrets.MYSECRET }} | base64

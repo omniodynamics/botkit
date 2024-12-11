@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run --network=bridge -p 8443:8443 -it nginx-self-signed-ca /bin/bash

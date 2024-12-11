@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git status; git add -u ; git commit -m '[botkit/v1.0.0] Testing.'; git push;
+gh workflow run --ref 'botkit/v1.0.0' .github/workflows/debug.yaml
+export runid=$(gh run list -w "debug.yaml" -L 1 --json databaseId --jq '.[0].databaseId')
+gh run view ${runid} --log
+# gh run download ${runid} --repo omniodynamics/botkit  -n artifact.txt

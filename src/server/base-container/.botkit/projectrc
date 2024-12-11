@@ -1,0 +1,7 @@
+export PROJECT=${PWD}
+export TAG_NAME=$(basename ${PWD})
+
+if [[ -z "${PROJECT}" ]]; then
+    source ~/.bashrc
+    export PATH=${PATH}:$(realpath ./workflows)
+fi

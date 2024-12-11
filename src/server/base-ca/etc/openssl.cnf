@@ -1,0 +1,63 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir              = /certs/ca
+certs            = $dir
+crl_dir          = /certs/crl
+database         = $dir/index.txt
+new_certs_dir    = $dir
+certificate      = $dir/ca.crt
+serial           = $dir/serial
+crlnumber        = $dir/crlnumber
+crl              = $dir/ca.crl
+private_key      = $dir/ca.key
+default_crl_days = 30
+
+[ req ]
+default_bits     = 2048
+default_keyfile  = privkey.pem
+distinguished_name = req_distinguished_name
+x509_extensions  = v3_ca
+req_extensions   = v3_req  # Added to include SAN in the certificate request
+default_md       = sha256
+
+[ req_distinguished_name ]
+countryName             = $ENV::CA_COUNTRY
+stateOrProvinceName     = $ENV::CA_STATE
+localityName            = $ENV::CA_LOCALITY
+organizationName        = $ENV::CA_ORG
+commonName              = $ENV::CA_CN
+commonName_max          = 64
+
+[ v3_ca ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical,CA:true
+
+[ v3_req ]
+subjectAltName = @alt_names
+basicConstraints = CA:FALSE  # Indicate this is not a CA certificate
+
+[ alt_names ]
+DNS.1 = *.odinet.sh
+
+[ crl_ext ]
+# CRL Extensions
+authorityKeyIdentifier=keyid:always
+# Optionally, you can specify a distribution point
+crlDistributionPoints = URI:http://yourca.example.com/crl/ca.crl
+
+[ usr_cert ]
+# ... other extensions ...
+crlDistributionPoints = URI:http://yourca.example.com/crl/ca.crl
+
+[crl_reason]
+unspecified = 0
+keyCompromise = 1
+CACompromise = 2
+affiliationChanged = 3
+superseded = 4
+cessationOfOperation = 5
+certificateHold = 6
+removeFromCRL = 8

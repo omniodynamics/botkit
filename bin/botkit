@@ -12,10 +12,7 @@ function on_cd() {
 function cmd_init() {
     if [[ ! -d .botkit ]]; then
         set -B
-        mkdir .botkit
-        mkdir .botkit/{workflows,secrets,runs,files,app,test,bin}
-        touch .botkit/projectrc
-        touch .botkit/botkitrc
+        mkdir ..{workflows,secrets,test}
     fi
 }
 
@@ -47,10 +44,3 @@ export BOTKIT_CICD_SYSTEM=${BOTKIT_CICD_SYSTEM:-github}
 export PROMPT_COMMAND='on_cd'
 
 
-# git status; git add -u ; git commit -m '[botkit/v1.0.0] Testing.'; git push;
-
-#  gh run list -w "debug.yaml" -L 1 --json databaseId --jq '.[0].databaseId'
-
-# gh workflow run --ref botkit/v1.0.0 .github/workflows/debug.yaml
-
-#  gh run view 12257765368 --log

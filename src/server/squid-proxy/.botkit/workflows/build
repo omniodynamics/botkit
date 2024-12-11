@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# docker build . -t squid-proxy
+ docker build --no-cache --build-arg SQUID_VERSION=v5 -t squid-proxy:latest 
