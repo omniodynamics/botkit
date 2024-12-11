@@ -1,0 +1,26 @@
+name: Debug
+
+on: 
+  workflow_dispatch:
+    inputs:
+      tags: 
+        required: false
+
+jobs:
+  echo-secret:
+    runs-on: ubuntu-latest
+    steps:
+    - name: debug
+      id: set-outputs
+      run: |
+        echo mysecret=$(echo ${{ secrets.MYSECRET }} | base64) >> $GITHUB_OUTPUT
+
+    - name: Use outputs
+      run: |
+        echo ${{ steps.set-outputs.outputs.mysecret }} > artifact.txt
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4  # Updated from v2 to v4
+      with:
+        name: artifact.txt
+        path: artifact.txt

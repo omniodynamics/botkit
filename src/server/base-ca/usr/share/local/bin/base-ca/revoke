@@ -1,0 +1,4 @@
+openssl ca -config /path/to/openssl.cnf -revoke /path/to/certificate/to/revoke/cert.pem
+openssl ca -config /path/to/openssl.cnf -revoke /path/to/certificate/to/revoke/cert.pem -crl_reason keyCompromise
+
+openssl ca -config /path/to/openssl.cnf -gencrl -out /path/to/crl/ca.crl

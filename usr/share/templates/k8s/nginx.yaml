@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-nginx
+  labels:
+    app: test-nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-nginx
+  template:
+    metadata:
+      labels:
+        app: test-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-nginx-service
+spec:
+  selector:
+    app: test-nginx
+  ports:
+    - protocol: TCP
+      port: 80  # Service port
+      targetPort: 80  # Container port
+  type: LoadBalancer  # This will create an ELB in AWS

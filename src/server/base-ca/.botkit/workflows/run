@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker run -h odinet.sh -it base-ca /bin/bash

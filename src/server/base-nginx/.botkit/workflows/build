@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+docker build . -t self-signed-ca:latest
+docker build . -f NGINX.Dockerfile -t nginx-self-signed-ca:latest
+# docker run -it nginx-self-signed-ca:latest

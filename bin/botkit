@@ -1,0 +1,46 @@
+#!/bin/bash
+
+function on_cd() {
+    #
+    # Project file
+    #
+    if [[ -r ${PWD}/.botkit/projectrc ]]; then
+        source .projectrc
+    fi
+}
+
+function cmd_init() {
+    if [[ ! -d .botkit ]]; then
+        set -B
+        mkdir ..{workflows,secrets,test}
+    fi
+}
+
+function cmd_cicd_init() {
+    if [[ ! -d ${PWD}/.github ]]; then
+        mkdir .github
+        mkdir -p .github/workflows
+    fi
+}
+
+function bot() {
+    printf "$#\n"
+    printf "$@\n"
+
+    while [[ $# -ge 1 ]] ; do 
+        case $1 in
+            init)
+                cmd_init
+                shift
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+}
+
+export BOTKIT_CICD_SYSTEM=${BOTKIT_CICD_SYSTEM:-github}
+export PROMPT_COMMAND='on_cd'
+
+
